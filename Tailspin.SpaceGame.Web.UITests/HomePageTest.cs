@@ -36,9 +36,17 @@ namespace UITests
                     );
                     break;
                   case "Firefox":
+                    string geckoDriverDirectory = Environment.GetEnvironmentVariable("GeckoWebDriver");
+                    FirefoxDriverService geckoService = FirefoxDriverService.CreateDefaultService(geckoDriverDirectory);
+                    geckoService.Host = "::1";
+                    var firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.AcceptInsecureCertificates = true;
+                    driver = new FirefoxDriver(geckoService, firefoxOptions);
+                    /*
                     driver = new FirefoxDriver(
                         Environment.GetEnvironmentVariable("GeckoWebDriver")
                     );
+                    */
                     break;
                   case "Edge":
                     driver = new EdgeDriver(
